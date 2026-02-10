@@ -12,14 +12,80 @@ const GAMES = [
     isFeatured: true
   },
   {
+    id: 'snow-rider-3d',
+    title: 'Snow Rider 3d',
+    description: 'Experience the ultimate downhill sledding adventure. Navigate through snowy mountains, dodge obstacles, and collect gifts in this immersive 3D action game.',
+    thumbnail: 'https://geometrydashfullversion.io/data/image/game/snow-rider-3d/snow-rider-3d.jpg',
+    url: 'https://html5.gamedistribution.com/3b79a8537ebc414fb4f9672a9b8c68c8/?gd_sdk_referrer_url=https://www.onlinegames.io/snow-rider-3d',
+    category: 'Action',
+    rating: 4.8,
+    plays: '4.5M+',
+    isFeatured: false
+  },
+  {
+    id: 'bloxd-io',
+    title: 'Bloxd.io',
+    description: 'A massive online sandbox featuring Minecraft-style graphics and multiple game modes. Experience survival, creative building, parkour, and competitive combat in this versatile browser adventure.',
+    thumbnail: 'https://images.igdb.com/igdb/image/upload/t_cover_big/coad0h.webp',
+    url: 'https://bloxd.io/',
+    category: 'Adventure',
+    rating: 4.8,
+    plays: '15M+',
+    isFeatured: false
+  },
+  {
+    id: 'deadshot-io',
+    title: 'DEADSHOT.io',
+    description: 'A competitive first-person shooter with fast-paced gameplay and multiple maps. Master your aim and reflexes in this intense multiplayer arena.',
+    thumbnail: 'https://www.onlinegames.io/media/posts/898/Deadshot-io.jpg',
+    url: 'https://deadshot.io/',
+    category: 'Shooter',
+    rating: 4.8,
+    plays: '1.2M+',
+    isFeatured: false
+  },
+  {
+    id: 'world-guessr',
+    title: 'WorldGuessr',
+    description: 'Embark on a global adventure and test your geography skills. You are dropped in a random location in Street View—can you figure out where you are?',
+    thumbnail: 'https://imgs.crazygames.com/worldguessr_1x1/20241018082521/worldguessr_1x1-cover?format=auto&quality=100&metadata=none&width=1200',
+    url: 'https://www.google.com/maps/embed/v1/streetview?location=40.6909253,-74.0552998&key=AIzaSyA_t5gb2Mn37dZjhsaJ4F-OPp1PWDxqZyI&fov=100&language=en',
+    category: 'Adventure',
+    rating: 4.7,
+    plays: '890K+',
+    isFeatured: false
+  },
+  {
+    id: 'fnaf-2',
+    title: 'FNAF 2',
+    description: 'Welcome back to the new and improved Freddy Fazbear\'s Pizza! In Five Nights at Freddy\'s 2, the old and aging animatronics are joined by a new cast of characters. They are kid-friendly, updated with the latest in facial recognition technology, and promised to put on a safe and entertaining show for kids and grown-ups alike. What could go wrong?',
+    thumbnail: 'https://howlongtobeat.com/games/22612_Five_Nights_at_Freddys_2.jpg',
+    url: 'https://www.onlinegames.io/games/2024/w1/five-nights-at-freddys-2/index.html',
+    category: 'Horror',
+    rating: 4.9,
+    plays: '3.2M+',
+    isFeatured: false
+  },
+  {
     id: '2v2-io',
     title: '2v2.io',
     description: 'Fast-paced multiplayer action. Build, shoot, and compete in intense 2v2 battles. Prove your dominance in this unblocked competitive arena.',
     thumbnail: 'https://thaka.bing.com/th?id=OCGE.9p4q82w7cd1f_abtesting_7c126d39-ef59-416e-bb7b-c7b7b240a802_webp&w=124&h=124&qlt=80&c=0&rs=1',
     url: 'https://2v2.io/?msn=true&msstart_sdk_init=eyJwYXJlbnRPcmlnaW4iOiJodHRwczovL3d3dy5tc24uY29tIiwiY2xpZW50SWQiOiIzQkZFRjc1OTE2NDU2NjI3MjhCM0UxOTAxNzFENjcyRCIsImxvY2FsZSI6ImVuLWdiIiwiZW50cnlQb2ludElkIjoiIiwic3dpdGNoR2FtZVBheWxvYWQiOnsic3dpdGNoZWRUbyI6IjlwNHE4Mnc3Y2QxZiIsInZhbHVlIjp7fX19',
-    category: 'Action',
+    category: 'Shooter',
     rating: 4.7,
     plays: '850K+',
+    isFeatured: false
+  },
+  {
+    id: 'veck-io',
+    title: 'Veck.io',
+    description: 'A fast-paced neon shooter where you pilot a ship through waves of enemies. Upgrade your weapons and survive as long as possible in this intense arena.',
+    thumbnail: 'https://geometrylitegame.org//data/image/game/veck-io.jpg',
+    url: 'https://veck.io/?cg=true&auto_play=true',
+    category: 'Shooter',
+    rating: 4.8,
+    plays: '420K+',
     isFeatured: false
   },
   {
@@ -31,6 +97,39 @@ const GAMES = [
     category: 'Puzzle',
     rating: 4.5,
     plays: '320K+',
+    isFeatured: false
+  },
+  {
+    id: 'rooftop-run',
+    title: 'Rooftop Run',
+    description: 'Jump, slide and sprint across skyscrapers in this adrenaline-fueled parkour adventure. Master the urban landscape and reach the finish line in record time.',
+    thumbnail: 'https://imgs.crazygames.com/rooftop-run_1x1/20240415041518/rooftop-run_1x1-cover?format=auto&quality=100&metadata=none&width=1200',
+    url: '//html5.gamedistribution.com/rvvASMiM/cee36dd2c4f34d5797921a49bb1d4b83/index.html?gd_sdk_referrer_url=https%3A%2F%2Fwww.onlinegames.io%2Frooftop-run%2F&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3d3dy5vbmxpbmVnYW1lcy5pby9yb29mdG9wLXJ1bi8iLCJwYXJlbnREb21haW4iOiJvbmxpbmVnYW1lcy5pbyIsInRvcERvbWFpbiI6Im9ubGluZWdhbWVzLmlvIiwiaGFzSW1wcmVzc2lvbiI6ZmFsc2UsImxvYWRlckVuYWJsZWQiOnRydWUsImhvc3QiOiJodW1sNS5nYW1lZGlzdHJpYnV0aW9uLmNvbSIsInZlcnNpb24iOiIxLjUuMTgifQ%253D%253D',
+    category: 'Action',
+    rating: 4.8,
+    plays: '1.1M+',
+    isFeatured: false
+  },
+  {
+    id: 'fnaf',
+    title: 'FNAF',
+    description: 'Survive five nights at Freddy Fazbear\'s Pizza. Monitor the security cameras and manage your power carefully to avoid the animatronics in this cult classic horror experience.',
+    thumbnail: 'https://static.wikia.nocookie.net/fnafapedia/images/5/5e/FNaF_1_Xbox.png/revision/latest?cb=20240213230548',
+    url: 'https://www.onlinegames.io/games/2024/w1/five-nights-at-freddys/index.html',
+    category: 'Horror',
+    rating: 4.9,
+    plays: '5M+',
+    isFeatured: false
+  },
+  {
+    id: 'fragen',
+    title: 'Fragen',
+    description: 'Test your knowledge and challenge your brain with Fragen. A fun and engaging quiz game designed to keep you on your toes with a variety of interesting questions.',
+    thumbnail: 'https://www.onlinegames.io/media/posts/1040/fragen-game.webp',
+    url: 'https://html5.gamedistribution.com/626030ce36a249729e19df483d7836dc/?gd_sdk_referrer_url=https://www.onlinegames.io/fragen/',
+    category: 'Shooter',
+    rating: 4.6,
+    plays: '150K+',
     isFeatured: false
   }
 ];
@@ -140,27 +239,35 @@ window.playGame = function(id) {
     `;
     document.getElementById('player-description').textContent = game.description;
 
-    // Load Game Iframe
-    let iframeHtml = `
-        <iframe 
-            id="iframe" 
-            role="none" 
-            sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-popups allow-forms allow-top-navigation" 
-            aria-hidden="true" 
-            style="position: absolute; width: 100%; height: 100%; border: none;"
-            src="${game.url}">
-        </iframe>`;
-
-    // Special handling for Pixel Path's provider
-    if (game.id === 'pixel-path') {
+    // Special handling for HTML5 providers that need full permissions or specific IDs
+    const permissiveIds = ['pixel-path', 'rooftop-run', 'fnaf', 'fnaf-2', 'fragen', 'veck-io', 'deadshot-io', 'world-guessr', 'bloxd-io', 'snow-rider-3d'];
+    
+    let iframeHtml;
+    if (permissiveIds.includes(game.id)) {
+        // Broad permissions for modern browser games
         iframeHtml = `
             <iframe 
                 id="iframe" 
                 frameborder="0" 
-                allow="autoplay" 
-                allowfullscreen="" 
+                allow="autoplay; fullscreen; pointer-lock; microphone; clipboard-read; clipboard-write; accelerometer; gyroscope; payment; encrypted-media; picture-in-picture" 
+                allowfullscreen="true" 
+                webkitallowfullscreen="true" 
+                mozallowfullscreen="true" 
+                msallowfullscreen="true"
                 seamless="" 
                 scrolling="no" 
+                sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts allow-same-origin allow-downloads"
+                style="position: absolute; width: 100%; height: 100%; border: none;"
+                src="${game.url}">
+            </iframe>`;
+    } else {
+        // Standard sandboxed iframe
+        iframeHtml = `
+            <iframe 
+                id="iframe" 
+                role="none" 
+                sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-popups allow-forms allow-top-navigation" 
+                aria-hidden="true" 
                 style="position: absolute; width: 100%; height: 100%; border: none;"
                 src="${game.url}">
             </iframe>`;
