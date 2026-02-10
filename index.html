@@ -51,6 +51,13 @@
             border-radius: 0 !important;
             margin: 0 !important;
         }
+
+        /* Modal Animation */
+        .modal-enter { animation: modalEnter 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        @keyframes modalEnter {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-indigo-500/30">
@@ -58,15 +65,25 @@
     <!-- Navbar -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800">
         <div class="container mx-auto px-4 h-20 flex items-center justify-between gap-4">
-            <div id="nav-brand" class="flex items-center gap-2 cursor-pointer group">
-                <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center group-hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/30">
-                    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
+            <div class="flex items-center gap-4">
+                <div id="nav-brand" class="flex items-center gap-2 cursor-pointer group">
+                    <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center group-hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/30">
+                        <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight">
+                        Nova<span class="text-indigo-500">Arcade</span>
+                    </span>
                 </div>
-                <span class="text-xl font-bold tracking-tight">
-                    Nova<span class="text-indigo-500">Arcade</span>
-                </span>
+                
+                <!-- Request Button -->
+                <button id="open-request-modal" class="flex items-center gap-2 px-3 py-1.5 bg-slate-900 hover:bg-indigo-600/20 border border-slate-700 hover:border-indigo-500 text-slate-400 hover:text-indigo-400 rounded-lg transition-all text-xs font-semibold group">
+                    <svg class="w-3.5 h-3.5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Request Game
+                </button>
             </div>
 
             <div class="flex items-center gap-6">
@@ -168,6 +185,53 @@
             </div>
         </div>
     </main>
+
+    <!-- Request Game Modal -->
+    <div id="request-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div id="modal-backdrop" class="absolute inset-0 bg-slate-950/80 backdrop-blur-md"></div>
+        <div class="relative w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl modal-enter">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold flex items-center gap-3">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-600/30">
+                        <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </div>
+                    Request a Game
+                </h2>
+                <button id="close-modal" class="text-slate-500 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <form id="request-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Game Name</label>
+                    <input type="text" id="req-name" required placeholder="e.g. Minecraft Classic" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Source Link (Optional)</label>
+                    <input type="url" id="req-url" placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+                </div>
+                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-600/20 active:scale-95 mt-2">
+                    Submit Request
+                </button>
+            </form>
+
+            <div id="request-success" class="hidden text-center py-8">
+                <div class="w-16 h-16 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
+                    <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-100 mb-2">Request Received!</h3>
+                <p class="text-slate-400 text-sm">We'll review your request and try to add it to the arcade soon.</p>
+                <button id="success-done" class="mt-6 px-6 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm font-bold transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-slate-950 border-t border-slate-800 py-10 mt-auto">
         <div class="container mx-auto px-4 text-center">

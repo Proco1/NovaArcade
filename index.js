@@ -139,6 +139,15 @@ const gameView = document.getElementById('game-view');
 const iframeContainer = document.getElementById('iframe-container');
 const allGamesSection = document.getElementById('all-games-section');
 
+// Modal Elements
+const requestModal = document.getElementById('request-modal');
+const modalBackdrop = document.getElementById('modal-backdrop');
+const openModalBtn = document.getElementById('open-request-modal');
+const closeModalBtn = document.getElementById('close-modal');
+const requestForm = document.getElementById('request-form');
+const requestSuccess = document.getElementById('request-success');
+const successDoneBtn = document.getElementById('success-done');
+
 // Initialization
 function init() {
     renderGames();
@@ -180,6 +189,46 @@ function init() {
             togglePseudoFullscreen(container);
         }
     });
+
+    // Request Modal Events
+    openModalBtn.addEventListener('click', openRequestModal);
+    closeModalBtn.addEventListener('click', closeRequestModal);
+    modalBackdrop.addEventListener('click', closeRequestModal);
+    successDoneBtn.addEventListener('click', closeRequestModal);
+    
+    requestForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('req-name').value;
+        const url = document.getElementById('req-url').value;
+        
+        console.log('Game Request:', { name, url });
+        
+        // Show success state
+        requestForm.classList.add('hidden');
+        requestSuccess.classList.remove('hidden');
+    });
+
+    // ESC key to close modal
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeRequestModal();
+        }
+    });
+}
+
+function openRequestModal() {
+    requestModal.classList.remove('hidden');
+    requestModal.classList.add('flex');
+    requestForm.classList.remove('hidden');
+    requestSuccess.classList.add('hidden');
+    requestForm.reset();
+    document.body.style.overflow = 'hidden';
+}
+
+function closeRequestModal() {
+    requestModal.classList.add('hidden');
+    requestModal.classList.remove('flex');
+    document.body.style.overflow = '';
 }
 
 /**
@@ -265,4 +314,70 @@ function createGameCard(game) {
 
 // Global scope for onclick handlers
 window.playGame = function(id) {
-    const game =
+    const game = GAMES.find(g => g.id === id);
+    if (!game) return;
+
+    // Update Player View UI
+    document.getElementById('player-title').innerHTML = `
+        ${game.title}
+        <span class="text-xs px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-full border border-indigo-500/20 font-bold uppercase tracking-widest ml-2">${game.category}</span>
+    `;
+    document.getElementById('player-description').textContent = game.description;
+
+    // Special handling for HTML5 providers that need full permissions or specific IDs
+    const permissiveIds = ['pixel-path', 'rooftop-run', 'fnaf', 'fnaf-2', 'fragen', 'veck-io', 'deadshot-io', 'world-guessr', 'bloxd-io', 'snow-rider-3d'];
+    
+    let iframeHtml;
+    if (permissiveIds.includes(game.id)) {
+        // Broad permissions for modern browser games
+        iframeHtml = `
+            <iframe 
+                id="iframe" 
+                frameborder="0" 
+                allow="autoplay; fullscreen; pointer-lock; microphone; clipboard-read; clipboard-write; accelerometer; gyroscope; payment; encrypted-media; picture-in-picture" 
+                allowfullscreen="true" 
+                webkitallowfullscreen="true" 
+                mozallowfullscreen="true" 
+                msallowfullscreen="true"
+                seamless="" 
+                scrolling="no" 
+                sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts allow-same-origin allow-downloads"
+                style="position: absolute; width: 100%; height: 100%; border: none;"
+                src="${game.url}">
+            </iframe>`;
+    } else {
+        // Standard sandboxed iframe
+        iframeHtml = `
+            <iframe 
+                id="iframe" 
+                role="none" 
+                sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-popups allow-forms allow-top-navigation" 
+                aria-hidden="true" 
+                style="position: absolute; width: 100%; height: 100%; border: none;"
+                src="${game.url}">
+            </iframe>`;
+    }
+    
+    iframeContainer.innerHTML = iframeHtml;
+
+    // Navigation
+    homeView.classList.add('hidden');
+    gameView.classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+function backToHome() {
+    // Ensure pseudo-fullscreen is closed when exiting
+    const container = document.getElementById('iframe-container');
+    if (container.classList.contains('pseudo-fullscreen')) {
+        togglePseudoFullscreen(container);
+    }
+    
+    iframeContainer.innerHTML = '';
+    gameView.classList.add('hidden');
+    homeView.classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Kickoff
+document.addEventListener('DOMContentLoaded', init);
