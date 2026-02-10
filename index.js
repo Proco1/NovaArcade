@@ -1,4 +1,3 @@
-
 const GAMES = [
   {
     id: 'space-waves',
@@ -157,19 +156,56 @@ function init() {
         });
     }
 
-    // Fullscreen Support
+    // Fullscreen Support with Mobile Fallback
     document.getElementById('fullscreen-btn').addEventListener('click', () => {
         const iframe = document.getElementById('iframe');
-        if (iframe) {
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
-            }
+        const container = document.getElementById('iframe-container');
+        const target = iframe || container;
+        
+        if (!target) return;
+
+        // Try standard native Fullscreen API first
+        const requestFS = target.requestFullscreen || 
+                          target.webkitRequestFullscreen || 
+                          target.mozRequestFullScreen || 
+                          target.msRequestFullscreen;
+
+        if (requestFS) {
+            requestFS.call(target).catch(() => {
+                // If native fails (sometimes happens on mobile depending on context)
+                togglePseudoFullscreen(container);
+            });
+        } else {
+            // No native support (typical for iOS elements)
+            togglePseudoFullscreen(container);
         }
     });
+}
+
+/**
+ * Fallback for mobile devices that don't support native element fullscreen.
+ * Uses CSS to make the game container cover the entire viewport.
+ */
+function togglePseudoFullscreen(container) {
+    container.classList.toggle('pseudo-fullscreen');
+    const exitBtnId = 'exit-fs-mobile';
+    let exitBtn = document.getElementById(exitBtnId);
+    
+    if (container.classList.contains('pseudo-fullscreen')) {
+        if (!exitBtn) {
+            exitBtn = document.createElement('button');
+            exitBtn.id = exitBtnId;
+            // Rounded indigo circle with white X
+            exitBtn.className = 'fixed top-5 right-5 z-[10000] w-12 h-12 bg-indigo-600 text-white rounded-full font-bold shadow-2xl flex items-center justify-center transition-transform active:scale-90';
+            exitBtn.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            exitBtn.onclick = () => togglePseudoFullscreen(container);
+            document.body.appendChild(exitBtn);
+        }
+        document.body.style.overflow = 'hidden'; // Lock scrolling
+    } else {
+        if (exitBtn) exitBtn.remove();
+        document.body.style.overflow = ''; // Unlock scrolling
+    }
 }
 
 function renderGames() {
@@ -229,64 +265,4 @@ function createGameCard(game) {
 
 // Global scope for onclick handlers
 window.playGame = function(id) {
-    const game = GAMES.find(g => g.id === id);
-    if (!game) return;
-
-    // Update Player View UI
-    document.getElementById('player-title').innerHTML = `
-        ${game.title}
-        <span class="text-xs px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-full border border-indigo-500/20 font-bold uppercase tracking-widest ml-2">${game.category}</span>
-    `;
-    document.getElementById('player-description').textContent = game.description;
-
-    // Special handling for HTML5 providers that need full permissions or specific IDs
-    const permissiveIds = ['pixel-path', 'rooftop-run', 'fnaf', 'fnaf-2', 'fragen', 'veck-io', 'deadshot-io', 'world-guessr', 'bloxd-io', 'snow-rider-3d'];
-    
-    let iframeHtml;
-    if (permissiveIds.includes(game.id)) {
-        // Broad permissions for modern browser games
-        iframeHtml = `
-            <iframe 
-                id="iframe" 
-                frameborder="0" 
-                allow="autoplay; fullscreen; pointer-lock; microphone; clipboard-read; clipboard-write; accelerometer; gyroscope; payment; encrypted-media; picture-in-picture" 
-                allowfullscreen="true" 
-                webkitallowfullscreen="true" 
-                mozallowfullscreen="true" 
-                msallowfullscreen="true"
-                seamless="" 
-                scrolling="no" 
-                sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts allow-same-origin allow-downloads"
-                style="position: absolute; width: 100%; height: 100%; border: none;"
-                src="${game.url}">
-            </iframe>`;
-    } else {
-        // Standard sandboxed iframe
-        iframeHtml = `
-            <iframe 
-                id="iframe" 
-                role="none" 
-                sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-popups allow-forms allow-top-navigation" 
-                aria-hidden="true" 
-                style="position: absolute; width: 100%; height: 100%; border: none;"
-                src="${game.url}">
-            </iframe>`;
-    }
-    
-    iframeContainer.innerHTML = iframeHtml;
-
-    // Navigation
-    homeView.classList.add('hidden');
-    gameView.classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-};
-
-function backToHome() {
-    iframeContainer.innerHTML = '';
-    gameView.classList.add('hidden');
-    homeView.classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// Kickoff
-document.addEventListener('DOMContentLoaded', init);
+    const game =
