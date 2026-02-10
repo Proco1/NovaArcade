@@ -148,6 +148,9 @@ const requestForm = document.getElementById('request-form');
 const requestSuccess = document.getElementById('request-success');
 const successDoneBtn = document.getElementById('success-done');
 
+// Detection for Mobile Devices
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 // Initialization
 function init() {
     renderGames();
@@ -165,27 +168,28 @@ function init() {
         });
     }
 
-    // Fullscreen Support with Mobile Fallback
+    // Fullscreen Support with optimized Mobile Handling
     document.getElementById('fullscreen-btn').addEventListener('click', () => {
-        const iframe = document.getElementById('iframe');
         const container = document.getElementById('iframe-container');
-        const target = iframe || container;
-        
-        if (!target) return;
+        if (!container) return;
 
-        // Try standard native Fullscreen API first
-        const requestFS = target.requestFullscreen || 
-                          target.webkitRequestFullscreen || 
-                          target.mozRequestFullScreen || 
-                          target.msRequestFullscreen;
+        // On mobile, skip native FS to avoid browser quirks and use Pseudo-Fullscreen exclusively
+        if (isMobile) {
+            togglePseudoFullscreen(container);
+            return;
+        }
+
+        // Desktop logic: Try native first
+        const requestFS = container.requestFullscreen || 
+                          container.webkitRequestFullscreen || 
+                          container.mozRequestFullScreen || 
+                          container.msRequestFullscreen;
 
         if (requestFS) {
-            requestFS.call(target).catch(() => {
-                // If native fails (sometimes happens on mobile depending on context)
+            requestFS.call(container).catch(() => {
                 togglePseudoFullscreen(container);
             });
         } else {
-            // No native support (typical for iOS elements)
             togglePseudoFullscreen(container);
         }
     });
@@ -208,10 +212,14 @@ function init() {
         requestSuccess.classList.remove('hidden');
     });
 
-    // ESC key to close modal
+    // ESC key to close modal or exit pseudo-fullscreen
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeRequestModal();
+            const container = document.getElementById('iframe-container');
+            if (container && container.classList.contains('pseudo-fullscreen')) {
+                togglePseudoFullscreen(container);
+            }
         }
     });
 }
@@ -244,9 +252,9 @@ function togglePseudoFullscreen(container) {
         if (!exitBtn) {
             exitBtn = document.createElement('button');
             exitBtn.id = exitBtnId;
-            // Rounded indigo circle with white X
-            exitBtn.className = 'fixed top-5 right-5 z-[10000] w-12 h-12 bg-indigo-600 text-white rounded-full font-bold shadow-2xl flex items-center justify-center transition-transform active:scale-90';
-            exitBtn.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            // Rounded indigo circle with white X - sized for touch
+            exitBtn.className = 'fixed top-6 right-6 z-[10000] w-14 h-14 bg-indigo-600/90 text-white rounded-full font-bold shadow-2xl flex items-center justify-center transition-transform active:scale-90 backdrop-blur-md border border-white/20';
+            exitBtn.innerHTML = '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>';
             exitBtn.onclick = () => togglePseudoFullscreen(container);
             document.body.appendChild(exitBtn);
         }
@@ -334,7 +342,7 @@ window.playGame = function(id) {
             <iframe 
                 id="iframe" 
                 frameborder="0" 
-                allow="autoplay; fullscreen; pointer-lock; microphone; clipboard-read; clipboard-write; accelerometer; gyroscope; payment; encrypted-media; picture-in-picture" 
+                allow="autoplay; fullscreen; pointer-lock; orientation-lock; microphone; clipboard-read; clipboard-write; accelerometer; gyroscope; payment; encrypted-media; picture-in-picture" 
                 allowfullscreen="true" 
                 webkitallowfullscreen="true" 
                 mozallowfullscreen="true" 
@@ -369,7 +377,7 @@ window.playGame = function(id) {
 function backToHome() {
     // Ensure pseudo-fullscreen is closed when exiting
     const container = document.getElementById('iframe-container');
-    if (container.classList.contains('pseudo-fullscreen')) {
+    if (container && container.classList.contains('pseudo-fullscreen')) {
         togglePseudoFullscreen(container);
     }
     
