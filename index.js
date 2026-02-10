@@ -1,5 +1,16 @@
 const GAMES = [
   {
+    id: 'retro-bowl',
+    title: 'Retro Bowl',
+    description: 'The perfect game for the armchair quarterback to finally prove a point. Can you manage your team, handle the media, and lead your squad to the ultimate prize?',
+    thumbnail: 'https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=314,height=314,fit=cover,f=auto/ee9ca3764ef4289a48a1ebf457ef605441ed1f35a0f2eb12707a70d609e53686/retro-bowl.png',
+    url: 'https://retrobowl.me/iframe/retro-bowl/latest.html',
+    category: 'Sports',
+    rating: 4.9,
+    plays: '10M+',
+    isFeatured: false
+  },
+  {
     id: 'space-waves',
     title: 'Space Waves',
     description: 'A high-octane rhythmic avoidance game. Navigate through geometric obstacles with precise timing and skill to survive the space waves.',
@@ -113,7 +124,7 @@ const GAMES = [
     id: 'fnaf',
     title: 'FNAF',
     description: 'Survive five nights at Freddy Fazbear\'s Pizza. Monitor the security cameras and manage your power carefully to avoid the animatronics in this cult classic horror experience.',
-    thumbnail: 'https://static.wikia.nocookie.net/fnafapedia/images/5/5e/FNaF_1_Xbox.png/revision/latest?cb=20240213230548',
+    thumbnail: 'https://image.api.playstation.com/gs2-sec/appkgo/prod/CUSA18362_00/1/i_cd6a177c374f229f9cd8e1164a78d49f78af97820747d480daf8cdd3e965c248/i/icon0.png',
     url: 'https://www.onlinegames.io/games/2024/w1/five-nights-at-freddys/index.html',
     category: 'Horror',
     rating: 4.9,
@@ -333,7 +344,7 @@ window.playGame = function(id) {
     document.getElementById('player-description').textContent = game.description;
 
     // Special handling for HTML5 providers that need full permissions or specific IDs
-    const permissiveIds = ['pixel-path', 'rooftop-run', 'fnaf', 'fnaf-2', 'fragen', 'veck-io', 'deadshot-io', 'world-guessr', 'bloxd-io', 'snow-rider-3d'];
+    const permissiveIds = ['retro-bowl', 'pixel-path', 'rooftop-run', 'fnaf', 'fnaf-2', 'fragen', 'veck-io', 'deadshot-io', 'world-guessr', 'bloxd-io', 'snow-rider-3d'];
     
     let iframeHtml;
     if (permissiveIds.includes(game.id)) {
@@ -349,7 +360,7 @@ window.playGame = function(id) {
                 msallowfullscreen="true"
                 seamless="" 
                 scrolling="no" 
-                sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts allow-same-origin allow-downloads"
+                sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts allow-same-origin allow-downloads allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
                 style="position: absolute; width: 100%; height: 100%; border: none;"
                 src="${game.url}">
             </iframe>`;
