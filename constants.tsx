@@ -1,0 +1,1 @@
+// File removed to prevent conflict with Vanilla JS implementation

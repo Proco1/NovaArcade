@@ -1,0 +1,5 @@
+{
+  "name": "NovaArcade",
+  "description": "A high-performance Vanilla JS unblocked games portal. No build step, no dependencies, just pure speed and aesthetics.",
+  "requestFramePermissions": []
+}
