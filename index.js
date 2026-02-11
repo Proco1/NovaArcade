@@ -26,7 +26,7 @@ const GAMES = [
     title: 'Bloxorz',
     description: 'The ultimate test of logic and spatial orientation. Maneuver a 2-by-1 block through a series of challenging 3D levels to reach the target hole. Don\'t fall off the edges!',
     thumbnail: 'https://www.coolmathgames.com/sites/default/files/bloxorz-game-icon.png',
-    url: 'https://cloud.onlinegames.io/games/2024/gm/games4/bloxorz/index.html',
+    url: 'https://gum.criteo.com/syncframe?origin=publishertagids&topUrl=www.mathplayground.com&gdpr=0&gdpr_consent={"bundle":{"origin":0},"optout":{"value":false,"origin":0},"tld":"mathplayground.com","topUrl":"www.mathplayground.com","version":163,"origin":"publishertagids","requestId":"0.07643840198470675"}',
     category: 'Puzzle',
     rating: 4.9,
     plays: '5M+',
@@ -454,10 +454,24 @@ window.playGame = function(id) {
     document.getElementById('player-description').textContent = game.description;
 
     // Special handling for HTML5 providers that need full permissions or specific IDs
-    const permissiveIds = ['slope', 'only-up', 'bloxorz', 'pill-soccer', 'tap-tap-shots', 'fnaf-4', 'table-tennis', 'suika-game', 'minecraft', 'geometry-dash', 'retro-bowl', 'pixel-path', 'rooftop-run', 'fnaf', 'fnaf-2', 'fragen', 'veck-io', 'deadshot-io', 'world-guessr', 'bloxd-io', 'snow-rider-3d'];
+    const permissiveIds = ['slope', 'only-up', 'pill-soccer', 'tap-tap-shots', 'fnaf-4', 'table-tennis', 'suika-game', 'minecraft', 'geometry-dash', 'retro-bowl', 'pixel-path', 'rooftop-run', 'fnaf', 'fnaf-2', 'fragen', 'veck-io', 'deadshot-io', 'world-guessr', 'bloxd-io', 'snow-rider-3d'];
     
     let iframeHtml;
-    if (permissiveIds.includes(game.id)) {
+    
+    // User requested a very specific iframe for Bloxorz
+    if (game.id === 'bloxorz') {
+        iframeHtml = `
+            <iframe 
+                src="${game.url}" 
+                width="0" 
+                height="0" 
+                frameborder="0" 
+                sandbox="allow-scripts allow-same-origin" 
+                aria-hidden="true" 
+                title="Criteo GUM iframe" 
+                style="border-width: 0px; margin: 0px; display: none;">
+            </iframe>`;
+    } else if (permissiveIds.includes(game.id)) {
         // Broad permissions for modern browser games
         iframeHtml = `
             <iframe 
