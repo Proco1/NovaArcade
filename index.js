@@ -1,5 +1,115 @@
 const GAMES = [
   {
+    id: 'slope',
+    title: 'Slope',
+    description: 'The ultimate endless runner. Steer a ball down a steep, narrow slope, avoiding red obstacles and staying on the track as your speed increases to breakneck levels. One wrong move and it\'s game over!',
+    thumbnail: 'https://slopegame-online.com/slope.webp',
+    url: 'https://yoplay.io/slope.embed',
+    category: 'Skill',
+    rating: 4.9,
+    plays: '15M+',
+    isFeatured: false
+  },
+  {
+    id: 'only-up',
+    title: 'Only Up',
+    description: 'Scale breathtaking heights in this intense parkour challenge. One mistake could send you back to the beginning. Navigate through a surreal landscape of floating objects and reach the peak in this ultimate test of patience and precision.',
+    thumbnail: 'https://forum-files-playcanvas-com.s3.dualstack.eu-west-1.amazonaws.com/original/3X/e/4/e4afe05d247f71b465d82cad7b338dd60346b7c2.jpeg',
+    url: 'https://html5.gamedistribution.com/c7a11f86eeda4a2b88e8d5ad2ba2f41d/?gd_sdk_referrer_url=https://www.onlinegames.io/only-up-parkour',
+    category: 'Action',
+    rating: 4.8,
+    plays: '2.4M+',
+    isFeatured: false
+  },
+  {
+    id: 'bloxorz',
+    title: 'Bloxorz',
+    description: 'The ultimate test of logic and spatial orientation. Maneuver a 2-by-1 block through a series of challenging 3D levels to reach the target hole. Don\'t fall off the edges!',
+    thumbnail: 'https://www.coolmathgames.com/sites/default/files/bloxorz-game-icon.png',
+    url: 'https://cloud.onlinegames.io/games/2024/gm/games4/bloxorz/index.html',
+    category: 'Puzzle',
+    rating: 4.9,
+    plays: '5M+',
+    isFeatured: false
+  },
+  {
+    id: 'pill-soccer',
+    title: 'Pill Soccer',
+    description: 'Hilarious head-to-head soccer action with pill-shaped players. Use unique abilities and master the physics to score spectacular goals in this fun sports arcade game.',
+    thumbnail: 'https://play-lh.googleusercontent.com/yRgY2xjFr2tTNA8wuB5XEXrYF11Ovypa4EAeM9QBGLJZVjRG3nwgTczZ-hp9HoakcA',
+    url: 'https://cloud.onlinegames.io/games/2024/gm/games3/pill-soccer/index.html',
+    category: 'Sports',
+    rating: 4.8,
+    plays: '420K+',
+    isFeatured: false
+  },
+  {
+    id: 'tap-tap-shots',
+    title: 'Tap-Tap Shots',
+    description: 'The ultimate basketball tap-challenge. Keep the ball in the air and sink as many baskets as you can before the timer runs out. Simple to play, hard to master!',
+    thumbnail: 'https://imgs.crazygames.com/games/tap-tap-shots/cover_1x1-1732719841511.png?format=auto&quality=100&metadata=none&width=1200',
+    url: 'https://www.onlinegames.io/games/2023/q/1/tap-tap-shots/index.html',
+    category: 'Sports',
+    rating: 4.7,
+    plays: '850K+',
+    isFeatured: false
+  },
+  {
+    id: 'fnaf-4',
+    title: 'FNAF 4',
+    description: 'The fourth chapter of the Five Nights at Freddy\'s story. This time, the terror has followed you home. In this final chapter of the original story, you must once again defend yourself against Freddy Fazbear, Chica, Bonnie, Foxy, and even worse things that lurk in the shadows.',
+    thumbnail: 'https://static.wikia.nocookie.net/freddy-fazbears-pizza/images/6/6c/Fnaf_4_desktop_icon.jpg/revision/latest?cb=20150723014651',
+    url: 'https://cdn.now.gg/html5-games/com.nowgg.h5.pub501.app51770/five-nights-at-freddy-s-4/index.html',
+    category: 'Horror',
+    rating: 4.9,
+    plays: '2.1M+',
+    isFeatured: false
+  },
+  {
+    id: 'table-tennis',
+    title: 'Table Tennis',
+    description: 'A thrilling sports game where you compete in table tennis matches against various opponents from around the world. Master your swing, use spin to your advantage, and rise through the ranks to become the ultimate champion.',
+    thumbnail: 'https://imgs.crazygames.com/table-tennis-world-tour_1x1/20230908041108/table-tennis-world-tour_1x1-cover?format=auto&quality=100&metadata=none&width=1200',
+    url: 'https://games.crazygames.com/en_US/table-tennis-world-tour/index.html?v=1.350',
+    category: 'Sports',
+    rating: 4.7,
+    plays: '1.5M+',
+    isFeatured: false
+  },
+  {
+    id: 'suika-game',
+    title: 'Suika Game',
+    description: 'The viral watermelon merging challenge. Drop fruits and combine them to reach the ultimate goal: the Suika! Strategic positioning and physics management are key in this addictive puzzle experience.',
+    thumbnail: 'https://watermelongame.co.uk/wp-content/uploads/2025/12/suika-game.webp',
+    url: 'https://cloud.onlinegames.io/games/2025/construct/321/watermelon-game/index-og.html',
+    category: 'Puzzle',
+    rating: 4.8,
+    plays: '500K+',
+    isFeatured: false
+  },
+  {
+    id: 'minecraft',
+    title: 'Minecraft',
+    description: 'Explore infinite worlds and build everything from the simplest of homes to the grandest of castles. This unblocked classic lets you mine, craft, and survive in a vast voxel world.',
+    thumbnail: 'https://i.redd.it/variations-to-the-minecraft-logo-v0-0dzqovtefeqd1.png?width=1218&format=png&auto=webp&s=4e7beefe76053942332e5c9f4c4f71671f97e63e',
+    url: 'https://sd592g.github.io/zj684od4lfg/',
+    category: 'Adventure',
+    rating: 4.9,
+    plays: '20M+',
+    isFeatured: false
+  },
+  {
+    id: 'geometry-dash',
+    title: 'Geometry Dash',
+    description: 'Jump and fly your way through danger in this rhythm-based action platformer! Push your skills to the limit as you jump, fly and flip your way through dangerous passages and spiky obstacles.',
+    thumbnail: 'https://static.wikia.nocookie.net/b213ondiscord/images/a/a6/Geometrydash.png/revision/latest/thumbnail/width/360/height/450?cb=20200721125515',
+    url: 'https://ozgames.io/geometry-dash.embed',
+    category: 'Skill',
+    rating: 4.8,
+    plays: '12M+',
+    isFeatured: false
+  },
+  {
     id: 'retro-bowl',
     title: 'Retro Bowl',
     description: 'The perfect game for the armchair quarterback to finally prove a point. Can you manage your team, handle the media, and lead your squad to the ultimate prize?',
@@ -344,7 +454,7 @@ window.playGame = function(id) {
     document.getElementById('player-description').textContent = game.description;
 
     // Special handling for HTML5 providers that need full permissions or specific IDs
-    const permissiveIds = ['retro-bowl', 'pixel-path', 'rooftop-run', 'fnaf', 'fnaf-2', 'fragen', 'veck-io', 'deadshot-io', 'world-guessr', 'bloxd-io', 'snow-rider-3d'];
+    const permissiveIds = ['slope', 'only-up', 'bloxorz', 'pill-soccer', 'tap-tap-shots', 'fnaf-4', 'table-tennis', 'suika-game', 'minecraft', 'geometry-dash', 'retro-bowl', 'pixel-path', 'rooftop-run', 'fnaf', 'fnaf-2', 'fragen', 'veck-io', 'deadshot-io', 'world-guessr', 'bloxd-io', 'snow-rider-3d'];
     
     let iframeHtml;
     if (permissiveIds.includes(game.id)) {
